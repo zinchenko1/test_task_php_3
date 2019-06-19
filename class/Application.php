@@ -63,7 +63,7 @@ class Application extends Config {
       $name = trim($out['name']);
       $phone = trim(filter_var($out['phone']), FILTER_SANITIZE_NUMBER_INT);
       $email = trim(filter_var($out['email'], FILTER_SANITIZE_EMAIL));
-      $comment = trim(filter_var($out['comment'], FILTER_SANITIZE_STRING));
+      $comment = trim($out['comment']);
       
       switch ($name) {
         case (strlen($name) < 1): $errors['name'] = 'Ім"я задовге';
@@ -87,22 +87,22 @@ class Application extends Config {
       }
 
       switch ($comment) {
+        case (strlen($comment) < 2): $errors['comment'] =  'Коментар має бути меншим за 25 символів' ;
+          break;
         case (strlen($comment) > 25): $errors['comment'] =  'Коментар має бути меншим за 25 символів' ;
           break;
-        
         case (!strip_tags($comment)): $errors['comment'] =  'Теги не допустимі' ;
           break;
       }
 
 
-      switch ($errors) {
-        case ( !empty($errors['0']) ):
+
+      if(!empty($errors['1'])) {
+        return ['result' => count($errors) === 1 , 'error' => $errors];
+      } else{
           return ['result' => count($errors) === 0, 'error' => $errors];
-          break;
-        case ( empty($errors['0']) ): 
-          return ['result' => count($errors) === 1, 'error' => $errors ];
-          break;
-      }     
+      }
+
     }   
 
     /**
