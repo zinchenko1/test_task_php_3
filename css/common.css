@@ -1,0 +1,27 @@
+span.error {
+    display: none;
+    color: red;
+    font-weight: bold;
+}
+
+.has-error {
+    border: 1px dotted red;
+    background-color: #fee;
+    transition: 1s;
+}
+
+.field > label > span.error {
+    text-align: right;
+}
+
+.field > label {
+    min-height: 50px;
+}
+
+.thank-you {
+    text-align: center;
+    display: none;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20%;
+}
